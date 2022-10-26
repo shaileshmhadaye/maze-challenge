@@ -32,7 +32,7 @@ public class MazeSolver
                     { '#', '#', '#', '.', '#', '.', '.', '.', '.', '#', '.', '#' },
                     { '#', '.', '.', '.', '.', '.', '#', '#', '.', '#', '.', '.' },
                     { '#', '#', '#', '#', '#', '#', '.', '#', '.', '#', '.', '#' },
-                    { '#', '.', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#' },
+                    { '#', '.', '.', '#', '.', '#', '.', '#', 'G', '#', '.', '#' },
                     { '#', '#', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#' },
                     { '#', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '#' },
                     { '#', '#', '#', '#', '#', '.', '#', '#', '#', '#', '.', '#' },
@@ -87,7 +87,7 @@ public class MazeSolver
 
 
         if ( isExit(p) ) { // base case
-            maze[p.y][p.x] = '$'; // '$' when the exit is located
+            maze[p.y][p.x] = 'x'; //
             System.out.println("RECURSIVE MAZE SOLVED");
             printMaze();
 
@@ -261,13 +261,22 @@ public class MazeSolver
     private static boolean isExit( Point p )
     {
         // Combines direction and location on border of the maze to determine an exit
-        if ( forward.equals("North") && p.y == 0 )
+
+        if ( lookRight(p) == 'G' ) {
+            return true;
+        }
+        else if ( lookForward(p) == 'G' ) {
+            return true;
+        }
+        else return lookLeft(p) == 'G';
+
+        /*if (maze[p.y][p.x] == 'G')
             return true;
         else if ( forward.equals("East") && p.x == 11 )
             return true;
         else if ( forward.equals("South") && p.y == 11 )
             return true;
-        else return forward.equals("West") && p.x == 0;
+        else return forward.equals("West") && p.x == 0;*/
     }
 
     // No precondition;
